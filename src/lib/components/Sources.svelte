@@ -7,7 +7,7 @@
     },
     {
       title: 'Realisasi MBG 2025',
-      description: 'Rp 52,9 Trikulum - CNBC Indonesia',
+      description: 'Rp 52,9 Triliun - CNBC Indonesia',
       url: 'https://www.cnbcindonesia.com/news/20251218163005-4-695489/anggaran-mbg-terserap-rp-529-t-di-akhir-2025-setara-746-dari-pagu'
     },
     {
@@ -23,24 +23,24 @@
   ];
 </script>
 
-<div class="bg-white border border-gray-200 rounded-lg p-6">
-  <h2 class="text-xl font-semibold text-gray-900 mb-4">
+<div class="border border-gray-300 dark:border-gray-700 p-3">
+  <h2 class="text-sm font-bold uppercase tracking-wide mb-3">
     Sumber Data
   </h2>
-  <div class="grid md:grid-cols-2 gap-4 text-sm">
+  <div class="grid md:grid-cols-2 gap-2 text-xs">
     {#each sources as source}
       <div class="flex items-start">
-        <div class="w-2 h-2 bg-green-500 rounded-full mt-1.5 mr-3 flex-shrink-0"></div>
+        <div class="w-1.5 h-1.5 bg-black dark:bg-white mt-1 mr-2 flex-shrink-0"></div>
         <div>
-          <strong class="text-gray-900">{source.title}:</strong> {source.description}
-          <a href={source.url} target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline block">
+          <strong>{source.title}:</strong> {source.description}
+          <a href={source.url} target="_blank" rel="noopener noreferrer" class="block hover:underline">
             {source.url.replace('https://', '')}
           </a>
         </div>
       </div>
     {/each}
   </div>
-  <div class="mt-4 p-3 bg-gray-50 rounded text-xs text-gray-600">
+  <div class="mt-3 border border-gray-300 dark:border-gray-700 p-2 text-xs text-gray-600 dark:text-gray-500">
     Data bersumber dari Kementerian Keuangan (APBN KiTa), Badan Gizi Nasional (BGN), dan berbagai media nasional.
   </div>
 </div>

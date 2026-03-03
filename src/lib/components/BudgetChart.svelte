@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { theme } from '$lib/theme';
   import Chart from 'chart.js/auto';
   
   let chartCanvas: HTMLCanvasElement;
@@ -27,12 +28,27 @@
     }
   };
   
+  function getChartColors(isDark: boolean) {
+    return {
+      bar1: isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+      bar2: isDark ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)',
+      border: isDark ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)',
+      grid: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
+      text: isDark ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'
+    };
+  }
+  
   function createChart() {
     if (chart) {
       chart.destroy();
     }
     
     const ctx = chartCanvas.getContext('2d');
+    if (!ctx) return;
+    
+    const isDark = $theme === 'dark';
+    const colors = getChartColors(isDark);
+    
     chart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -43,16 +59,10 @@
             budget2025Realization / 1000000000000,
             budget2026 / 1000000000000
           ],
-          backgroundColor: [
-            'rgba(59, 130, 246, 0.7)',
-            'rgba(16, 185, 129, 0.7)'
-          ],
-          borderColor: [
-            'rgb(59, 130, 246)',
-            'rgb(16, 185, 129)'
-          ],
-          borderWidth: 2,
-          borderRadius: 8
+          backgroundColor: [colors.bar1, colors.bar2],
+          borderColor: colors.border,
+          borderWidth: 1,
+          borderRadius: 0
         }]
       },
       options: {
@@ -63,10 +73,15 @@
             display: false
           },
           tooltip: {
+            backgroundColor: isDark ? '#000' : '#fff',
+            titleColor: colors.text,
+            bodyColor: colors.text,
+            borderColor: colors.border,
+            borderWidth: 1,
             callbacks: {
-              label: function(context) {
+              label: function(context: any) {
                 const value = context.parsed.y;
-                return 'Rp ' + value.toFixed(1) + ' Triliun';
+                return 'Rp ' + (value ?? 0).toFixed(1) + ' Triliun';
               }
             }
           }
@@ -75,19 +90,24 @@
           y: {
             beginAtZero: true,
             ticks: {
-              callback: function(value) {
+              callback: function(value: any) {
                 return value + ' T';
-              }
+              },
+              color: colors.text
             },
             grid: {
-              color: 'rgba(0, 0, 0, 0.05)'
+              color: colors.grid
             },
             title: {
               display: true,
-              text: 'Rp Triliun'
+              text: 'Rp Trlinien',
+              color: colors.text
             }
           },
           x: {
+            ticks: {
+              color: colors.text
+            },
             grid: {
               display: false
             }
@@ -105,63 +125,69 @@
     createChart();
   });
   
+  $: if (chartCanvas && $theme) {
+    createChart();
+  }
+  
   $: currentData = yearlyData[selectedYear as keyof typeof yearlyData];
   $: formattedPagu = (currentData.pagu / 1000000000000).toFixed(0);
   $: formattedRealization = currentData.realization > 0 
     ? (currentData.realization / 1000000000000).toFixed(1) 
     : '-';
-  $: formattedRecipients = (currentData.recipients / 1000000).toFixed(1);
+  $: formattedRecipients = (currentData.recipients / 1000000000).toFixed(1);
 </script>
 
-<div class="bg-white border border-gray-200 rounded-lg p-6 mb-8">
-  <div class="flex items-center justify-between mb-6">
-    <h2 class="text-xl font-semibold text-gray-900">
-      Grafik Anggaran MBG per Tahun
+<div class="border border-gray-300 dark:border-gray-700 p-3 mb-4">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-sm font-bold uppercase tracking-wide">
+      Grafik Anggaran MBG
     </h2>
-    <div class="flex gap-2">
+    <div class="flex gap-1">
       <button 
         on:click={() => selectYear('2025')}
-        class:bg-blue-600={selectedYear === '2025'}
-        class:bg-gray-200={selectedYear !== '2025'}
+        class:bg-black={selectedYear === '2025'}
+        class:dark:bg-white={selectedYear === '2025'}
+        class:bg-transparent={selectedYear !== '2025'}
         class:text-white={selectedYear === '2025'}
-        class:text-gray-700={selectedYear !== '2025'}
-        class="px-3 py-1 rounded text-sm"
+        class:dark:text-black={selectedYear === '2025'}
+        class="border border-gray-300 dark:border-gray-700 px-2 py-0.5 text-xs hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
       >
         2025
       </button>
       <button 
         on:click={() => selectYear('2026')}
-        class:bg-blue-600={selectedYear === '2026'}
-        class:bg-gray-200={selectedYear !== '2026'}
+        class:bg-black={selectedYear === '2026'}
+        class:dark:bg-white={selectedYear === '2026'}
+        class:bg-transparent={selectedYear !== '2026'}
         class:text-white={selectedYear === '2026'}
-        class:text-gray-700={selectedYear !== '2026'}
-        class="px-3 py-1 rounded text-sm"
+        class:dark:text-black={selectedYear === '2026'}
+        class="border border-gray-300 dark:border-gray-700 px-2 py-0.5 text-xs hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
       >
         2026
       </button>
     </div>
   </div>
   
-  <div class="relative h-80">
+  <div class="relative h-48">
     <canvas bind:this={chartCanvas}></canvas>
   </div>
   
-  <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-    <div class="text-center">
-      <div class="text-lg font-bold text-gray-900">Rp {formattedPagu} T</div>
-      <div class="text-sm text-gray-500">Anggaran {selectedYear}</div>
+  <div class="mt-3 grid grid-cols-4 gap-2 text-center">
+    <div>
+      <div class="font-bold text-sm">Rp {formattedPagu} T</div>
+      <div class="text-xs text-gray-600 dark:text-gray-500">Anggaran {selectedYear}</div>
     </div>
-    <div class="text-center">
-      <div class="text-lg font-bold text-gray-900">{formattedRealization} T</div>
-      <div class="text-sm text-gray-500">Realisasi</div>
+    <div>
+      <div class="font-bold text-sm">{formattedRealization} T</div>
+      <div class="text-xs text-gray-600 dark:text-gray-500">Realisasi</div>
     </div>
-    <div class="text-center">
-      <div class="text-lg font-bold text-gray-900">{formattedRecipients} Juta</div>
-      <div class="text-sm text-gray-500">Penerima Manfaat</div>
+    <div>
+      <div class="font-bold text-sm">{formattedRecipients} Jt</div>
+      <div class="text-xs text-gray-600 dark:text-gray-500">Penerima</div>
     </div>
-    <div class="text-center">
-      <div class="text-lg font-bold text-gray-900">{currentData.sppg.toLocaleString('id-ID')}</div>
-      <div class="text-sm text-gray-500">SPPG Aktif</div>
+    <div>
+      <div class="font-bold text-sm">{currentData.sppg.toLocaleString('id-ID')}</div>
+      <div class="text-xs text-gray-600 dark:text-gray-500">SPPG Aktif</div>
     </div>
   </div>
 </div>

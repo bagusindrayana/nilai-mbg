@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { theme } from '$lib/theme';
+  
   let lastUpdate = new Date();
   let inputRupiah = '10.000';
   let inputPorsi = '1';
@@ -10,36 +12,36 @@
   const dailyBudget = monthlyBudget / workingDaysPerMonth;
 
   const comparisonItems = [
-    { name: 'Pentol', price: 2000, icon: '🥩' },
-    { name: 'Bakso', price: 15000, icon: '🍜' },
-    { name: 'Nasi Goreng', price: 25000, icon: '🍳' },
-    { name: 'Ayam Goreng', price: 35000, icon: '🍗' },
-    { name: 'Beras 1 Kg', price: 15000, icon: '🌾' },
-    { name: 'Telur 1 Kg', price: 30000, icon: '🥚' },
-    { name: 'Susu 1 Liter', price: 15000, icon: '🥛' },
-    { name: 'Gorengan', price: 3000, icon: '🍟' },
-    { name: 'Teh Botol', price: 5000, icon: '🧋' },
-    { name: 'Paket Data 10GB', price: 50000, icon: '📱' },
-    { name: 'Pulsa', price: 100000, icon: '📲' },
-    { name: 'Sepeda', price: 1500000, icon: '🚲' },
-    { name: 'HPentry Level', price: 800000, icon: '📱' },
-    { name: 'Motor Honda', price: 25000000, icon: '🏍️' },
-    { name: 'Motor Listrik', price: 35000000, icon: '🛵' },
-    { name: 'Mobil Avanza', price: 250000000, icon: '🚗' },
-    { name: 'Uang Saku / Bulan', price: 500000, icon: '💰' },
-    { name: 'SPP Kuliah', price: 5000000, icon: '🎓' },
-    { name: 'Motor Honda Beat', price: 20000000, icon: '🏍️' },
-    { name: 'iPhone 15', price: 15000000, icon: '📱' },
-    { name: 'Rumah Subsidi', price: 150000000, icon: '🏠' },
-    { name: 'Rumah Middle', price: 500000000, icon: '🏡' },
-    { name: 'Rumah Mewah', price: 2000000000, icon: '🏰' },
-    { name: 'Apartemen', price: 800000000, icon: '🏢' },
-    { name: 'Tanah 100m²', price: 200000000, icon: '🗺️' },
-    { name: 'Emas 1 Gram', price: 900000, icon: '💎' },
-    { name: 'Emas 25 Gram', price: 22500000, icon: '📿' },
-    { name: 'Zakat Fitrah', price: 85000, icon: '🕌' },
-    { name: 'Umroh', price: 55000000, icon: '🕋' },
-    { name: 'Haji Plus', price: 450000000, icon: '🕱️' }
+    { name: 'Pentol', price: 2000 },
+    { name: 'Bakso', price: 15000 },
+    { name: 'Nasi Goreng', price: 25000 },
+    { name: 'Ayam Goreng', price: 35000 },
+    { name: 'Beras 1 Kg', price: 15000 },
+    { name: 'Telur 1 Kg', price: 30000 },
+    { name: 'Susu 1 Liter', price: 15000 },
+    { name: 'Gorengan', price: 3000 },
+    { name: 'Teh Botol', price: 5000 },
+    { name: 'Paket Data 10GB', price: 50000 },
+    { name: 'Pulsa', price: 100000 },
+    { name: 'Sepeda', price: 1500000 },
+    { name: 'HP Entry Level', price: 800000 },
+    { name: 'Motor Honda', price: 25000000 },
+    { name: 'Motor Listrik', price: 35000000 },
+    { name: 'Mobil Avanza', price: 250000000 },
+    { name: 'Uang Saku / Bulan', price: 500000 },
+    { name: 'SPP Kuliah', price: 5000000 },
+    { name: 'Motor Honda Beat', price: 20000000 },
+    { name: 'iPhone 15', price: 15000000 },
+    { name: 'Rumah Subsidi', price: 150000000 },
+    { name: 'Rumah Middle', price: 500000000 },
+    { name: 'Rumah Mewah', price: 2000000000 },
+    { name: 'Apartemen', price: 800000000 },
+    { name: 'Tanah 100m2', price: 200000000 },
+    { name: 'Emas 1 Gram', price: 900000 },
+    { name: 'Emas 25 Gram', price: 22500000 },
+    { name: 'Zakat Fitrah', price: 85000 },
+    { name: 'Umroh', price: 55000000 },
+    { name: 'Haji Plus', price: 450000000 }
   ];
 
   $: numericRupiah = parseRupiah(inputRupiah);
@@ -105,103 +107,95 @@
   }
 </script>
 
-<div class="bg-white border border-gray-200 rounded-lg p-6">
-  <div class="flex items-center justify-between mb-6">
-    <h2 class="text-xl font-semibold text-gray-900">
+<div class="border border-gray-300 dark:border-gray-700 p-3">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-sm font-bold uppercase tracking-wide">
       Kalkulator MBG
     </h2>
-    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">2026</span>
+    <span class="border border-gray-300 dark:border-gray-700 px-1.5 py-0.5 text-xs">2026</span>
   </div>
 
-  <div class="space-y-6">
-    <!-- Informasi Dasar -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-      <div class="border-l-4 border-blue-500 pl-4">
-        <div class="text-sm text-gray-600 mb-1">1 Porsi MBG</div>
-        <div class="text-xl font-bold text-gray-900">Rp {mbgPriceJava.toLocaleString('id-ID')}</div>
+  <div class="space-y-3">
+    <div class="grid grid-cols-2 gap-2">
+      <div class="border-l-2 border-black dark:border-white pl-2">
+        <div class="text-xs text-gray-600 dark:text-gray-500">1 Porsi MBG</div>
+        <div class="font-bold text-sm">Rp {mbgPriceJava.toLocaleString('id-ID')}</div>
       </div>
-      <div class="border-l-4 border-green-500 pl-4">
-        <div class="text-sm text-gray-600 mb-1">1 Hari Anggaran MBG (22 hari kerja)</div>
-        <div class="text-xl font-bold text-gray-900">Rp {(dailyBudget / 1000000000).toLocaleString('id-ID')} Miliar</div>
+      <div class="border-l-2 border-black dark:border-white pl-2">
+        <div class="text-xs text-gray-600 dark:text-gray-500">1 Hari Anggaran</div>
+        <div class="font-bold text-sm">Rp {(dailyBudget / 1000000000).toLocaleString('id-ID')} M</div>
       </div>
     </div>
 
-    <!-- Kalkulator Konversi -->
-    <div class="border-t pt-6">
-      <h3 class="font-semibold text-gray-900 mb-4">Kalkulator Konversi</h3>
+    <div class="border-t border-gray-300 dark:border-gray-700 pt-3">
+      <h3 class="font-bold text-xs mb-2 uppercase">Konversi</h3>
 
-      <div class="space-y-6">
-        <!-- Rupiah -->
+      <div class="space-y-2">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">
+          <label class="block text-xs font-bold mb-1 uppercase">
             Rupiah
           </label>
           <div class="relative">
-            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">Rp</span>
+            <span class="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 text-sm">Rp</span>
             <input
               type="text"
               value={inputRupiah}
               on:input={handleRupiahInput}
-              placeholder="Masukkan jumlah rupiah"
-              class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="0"
+              class="w-full pl-8 pr-2 py-1.5 border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-sm focus:outline-none focus:border-black dark:focus:border-white"
             />
           </div>
         </div>
 
-        <!-- Porsi -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">
+          <label class="block text-xs font-bold mb-1 uppercase">
             Porsi
           </label>
           <input
             type="number"
             bind:value={inputPorsi}
             on:input={handlePorsiInput}
-            placeholder="Masukkan jumlah porsi"
-            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="0"
+            class="w-full px-2 py-1.5 border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-sm focus:outline-none focus:border-black dark:focus:border-white"
           />
         </div>
 
-        <!-- Hari -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">
+          <label class="block text-xs font-bold mb-1 uppercase">
             Hari
           </label>
           <input
             type="number"
             bind:value={inputHari}
             on:input={handleHariInput}
-            placeholder="Masukkan jumlah hari"
-            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="0"
+            class="w-full px-2 py-1.5 border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-sm focus:outline-none focus:border-black dark:focus:border-white"
           />
         </div>
       </div>
     </div>
 
-    <!-- Perbandingan with other items -->
     {#if numericRupiah > 0}
-      <div class="border-t pt-6">
-        <h3 class="font-semibold text-gray-900 mb-4">
-          Dengan Rp {inputRupiah} bisa dapat:
+      <div class="border-t border-gray-300 dark:border-gray-700 pt-3">
+        <h3 class="font-bold text-xs mb-2 uppercase">
+          dengan Rp {inputRupiah}:
         </h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        <div class="grid grid-cols-3 gap-1.5">
           {#each comparisonResults.slice(0, 12) as item}
-            <div class="bg-gray-50 rounded-lg p-3 text-center">
-              <div class="text-2xl mb-1">{item.icon}</div>
-              <div class="text-xs text-gray-600 truncate">{item.name}</div>
-              <div class="font-bold text-gray-900">
+            <div class="border border-gray-300 dark:border-gray-700 p-2 text-center">
+              <div class="text-xs text-gray-600 dark:text-gray-500 truncate">{item.name}</div>
+              <div class="font-bold text-sm">
                 {item.quantity} {parseFloat(item.quantity) >= 1000 ? '+' : ''}
               </div>
             </div>
           {/each}
         </div>
         {#if comparisonResults.length > 12}
-          <div class="mt-3 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+          <div class="mt-1.5 grid grid-cols-3 gap-1.5">
             {#each comparisonResults.slice(12) as item}
-              <div class="bg-gray-50 rounded-lg p-3 text-center">
-                <div class="text-2xl mb-1">{item.icon}</div>
-                <div class="text-xs text-gray-600 truncate">{item.name}</div>
-                <div class="font-bold text-gray-900">
+              <div class="border border-gray-300 dark:border-gray-700 p-2 text-center">
+                <div class="text-xs text-gray-600 dark:text-gray-500 truncate">{item.name}</div>
+                <div class="font-bold text-sm">
                   {item.quantity} {parseFloat(item.quantity) >= 1000 ? '+' : ''}
                 </div>
               </div>
@@ -211,14 +205,13 @@
       </div>
     {/if}
 
-    <!-- Update Time -->
-    <div class="border-t pt-4">
+    <div class="border-t border-gray-300 dark:border-gray-700 pt-2">
       <div class="text-xs text-gray-500">
-        Update: {lastUpdate.toLocaleString('id-ID',{
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  })}
+        {lastUpdate.toLocaleString('id-ID', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
+        })}
       </div>
     </div>
   </div>

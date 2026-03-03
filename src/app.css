@@ -1,7 +1,21 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   html {
-    font-family: system-ui, sans-serif;
+    font-family: 'Space Mono', monospace;
+  }
+  
+  body {
+    @apply bg-white text-black;
+  }
+  
+  html.dark body {
+    @apply bg-black text-white;
+  }
+  
+  html.dark {
+    color-scheme: dark;
   }
 }

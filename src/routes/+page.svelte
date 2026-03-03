@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { theme } from '$lib/theme';
   import ExchangeRate from '$lib/components/ExchangeRate.svelte';
   import BudgetInfo from '$lib/components/BudgetInfo.svelte';
   import BudgetChart from '$lib/components/BudgetChart.svelte';
@@ -6,34 +7,37 @@
 
   let currentTime = new Date();
 
-  // Update time setiap detik
- //  setInterval(() => {
-   //  currentTime = new Date();
-  // }, 1000);
-
   $: formattedTime = currentTime.toLocaleString('id-ID', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
-   //  hour: '2-digit',
-   //  minute: '2-digit',
-   //  second: '2-digit'
   });
+
+  function toggleTheme() {
+    $theme = $theme === 'light' ? 'dark' : 'light';
+  }
 </script>
 
-<div class="bg-gray-50 min-h-screen">
-  <div class="container mx-auto px-4 py-8 max-w-7xl">
+<div class="min-h-screen bg-white dark:bg-black text-black dark:text-white transition-colors duration-200">
+  <div class="container mx-auto px-3 py-4 max-w-5xl">
     <!-- Header -->
-    <header class="text-center mb-8">
-      <h1 class="text-3xl font-bold text-gray-900 mb-3">
-        Anggaran & Program Makan Bergizi Gratis (MBG)
-      </h1>
-      <p class="text-gray-600 mb-2">Monitor alokasi anggaran dan informasi Program Makan Bergizi Gratis Nasional</p>
-      <p class="text-sm text-gray-500">Update: {formattedTime}</p>
+    <header class="flex justify-between items-start mb-6 border-b border-gray-300 dark:border-gray-700 pb-3">
+      <div>
+        <h1 class="text-lg font-bold tracking-tight">ANGGARAN & PROGRAM MBG</h1>
+        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Monitor alokasi anggaran Program Makan Bergizi Gratis Nasional</p>
+        <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">Update: {formattedTime}</p>
+      </div>
+      <button
+        on:click={toggleTheme}
+        class="border border-gray-300 dark:border-gray-700 px-2 py-1 text-sm hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
+        aria-label="Toggle theme"
+      >
+        {$theme === 'light' ? '◐' : '◑'}
+      </button>
     </header>
 
     <!-- Main Content Grid -->
-    <div class="grid lg:grid-cols-2 gap-6 mb-8">
+    <div class="grid md:grid-cols-2 gap-3 mb-4">
       <ExchangeRate />
       <BudgetInfo />
     </div>
