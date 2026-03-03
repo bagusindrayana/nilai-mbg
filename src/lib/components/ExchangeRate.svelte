@@ -14,12 +14,12 @@
   const comparisonItems = [
     { name: "Pentol", price: 2000 },
     { name: "Bakso", price: 15000 },
-    { name: "Nasi Goreng", price: 25000 },
-    { name: "Ayam Goreng", price: 35000 },
-    { name: "Beras 1 Kg", price: 15000 },
+    { name: "Nasi Goreng", price: 20000 },
+    { name: "Ayam Goreng", price: 10000 },
+    { name: "Beras 1 Kg", price: 20000 },
     { name: "Telur 1 Kg", price: 30000 },
     { name: "Susu 1 Liter", price: 15000 },
-    { name: "Gorengan", price: 3000 },
+    { name: "Gorengan", price: 2500 },
     { name: "Teh Botol", price: 5000 },
     { name: "Paket Data 10GB", price: 50000 },
     { name: "Pulsa", price: 100000 },
@@ -37,9 +37,9 @@
     { name: "Rumah Mewah", price: 2000000000 },
     { name: "Apartemen", price: 800000000 },
     { name: "Tanah 100m2", price: 200000000 },
-    { name: "Emas 1 Gram", price: 900000 },
-    { name: "Emas 25 Gram", price: 22500000 },
-    { name: "Zakat Fitrah", price: 85000 },
+    { name: "Emas 1 Gram", price: 3272000 },
+    { name: "Emas 25 Gram", price: 80000000 },
+    { name: "Zakat Fitrah", price: 50000 },
     { name: "Umroh", price: 55000000 },
     { name: "Haji Plus", price: 450000000 },
   ];
@@ -112,7 +112,9 @@
 
 <div class="border border-gray-300 dark:border-gray-700 p-3">
   <div class="flex items-center justify-between mb-3">
-    <h2 class="text-sm font-bold uppercase tracking-wide">Kalkulator MBG</h2>
+    <h2 class="text-sm font-bold uppercase tracking-wide">
+      Nilai Tukar ke MBG
+    </h2>
     <span
       class="border border-gray-300 dark:border-gray-700 px-1.5 py-0.5 text-xs"
       >2026</span
