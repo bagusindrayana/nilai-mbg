@@ -3,21 +3,21 @@
   import BudgetInfo from '$lib/components/BudgetInfo.svelte';
   import BudgetChart from '$lib/components/BudgetChart.svelte';
   import Sources from '$lib/components/Sources.svelte';
-  
+
   let currentTime = new Date();
-  
+
   // Update time setiap detik
-  setInterval(() => {
-    currentTime = new Date();
-  }, 1000);
-  
+ //  setInterval(() => {
+   //  currentTime = new Date();
+  // }, 1000);
+
   $: formattedTime = currentTime.toLocaleString('id-ID', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
+   //  hour: '2-digit',
+   //  minute: '2-digit',
+   //  second: '2-digit'
   });
 </script>
 

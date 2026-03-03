@@ -140,7 +140,11 @@
     <!-- Update Time -->
     <div class="border-t pt-4">
       <div class="text-xs text-gray-500">
-        Update: {lastUpdate.toLocaleString('id-ID')}
+        Update: {lastUpdate.toLocaleString('id-ID',{
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  })}
       </div>
     </div>
   </div>
