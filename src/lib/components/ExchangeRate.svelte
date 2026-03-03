@@ -1,25 +1,36 @@
 <script lang="ts">
   let lastUpdate = new Date();
-  let inputRupiah = '15000';
+  let inputRupiah = '15.000';
   let inputPorsi = '1';
   let inputHari = '0';
 
   const mbgPriceJava = 10000;
   const dailyBudget = 918000000000;
 
+  function formatRupiah(value: string): string {
+    const cleanValue = value.replace(/[^0-9]/g, '');
+    if (!cleanValue) return '';
+    return parseInt(cleanValue).toLocaleString('id-ID');
+  }
+
+  function parseRupiah(value: string): number {
+    return parseFloat(value.replace(/\./g, '').replace(/,/g, '')) || 0;
+  }
+
   function handleRupiahInput(event: Event) {
     const target = event.target as HTMLInputElement;
-    const value = target.value;
+    const formatted = formatRupiah(target.value);
+    const numericValue = parseRupiah(target.value);
 
-    if (value && value !== '') {
-      inputPorsi = (parseFloat(value) / mbgPriceJava).toFixed(2);
-      inputHari = (parseFloat(value) / dailyBudget).toFixed(6);
+    if (numericValue > 0) {
+      inputPorsi = (numericValue / mbgPriceJava).toFixed(2);
+      inputHari = (numericValue / dailyBudget).toFixed(6);
     } else {
       inputPorsi = '0';
       inputHari = '0';
     }
 
-    inputRupiah = value;
+    inputRupiah = formatted;
   }
 
   function handlePorsiInput(event: Event) {
@@ -27,7 +38,8 @@
     const value = target.value;
 
     if (value && value !== '') {
-      inputRupiah = (parseFloat(value) * mbgPriceJava).toFixed(0);
+      const numericValue = parseFloat(value);
+      inputRupiah = formatRupiah((numericValue * mbgPriceJava).toFixed(0));
     } else {
       inputRupiah = '0';
     }
@@ -41,7 +53,8 @@
     const value = target.value;
 
     if (value && value !== '') {
-      inputRupiah = (parseFloat(value) * dailyBudget).toFixed(0);
+      const numericValue = parseFloat(value);
+      inputRupiah = formatRupiah((numericValue * dailyBudget).toFixed(0));
     } else {
       inputRupiah = '';
     }
@@ -82,13 +95,16 @@
           <label class="block text-sm font-medium text-gray-700 mb-2">
             Rupiah
           </label>
-          <input
-            type="number"
-            bind:value={inputRupiah}
-            on:input={handleRupiahInput}
-            placeholder="Masukkan jumlah rupiah"
-            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">Rp</span>
+            <input
+              type="text"
+              value={inputRupiah}
+              on:input={handleRupiahInput}
+              placeholder="Masukkan jumlah rupiah"
+              class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
         </div>
 
         <!-- Porsi -->
