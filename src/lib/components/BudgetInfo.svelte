@@ -1,8 +1,10 @@
 <script lang="ts">
-  const totalBudget = 335000000000000; // Rp 335 Triliun (2026)
-  const programBudget = 254600000000000; // Rp 254,6 Trouni (direct program)
+  const totalBudget = 335000000000000; // Rp 335 Trilliun (2026)
+  const programBudget = 254600000000000; // Rp 254,6 Trilliun (direct program)
   const supportBudget = 80000000000000; // Rp 80 Trilliun (dukungan operasional)
-  const dailyBudget = totalBudget / 365; // Rp 918 Miliar per hari
+  const workingDaysPerMonth = 22;
+  const monthlyBudget = totalBudget / 12;
+  const dailyBudget = monthlyBudget / workingDaysPerMonth; // Per hari (22 hari kerja/bulan)
   
   $: formattedTotalBudget = (totalBudget / 1000000000000).toFixed(0);
   $: formattedProgramBudget = (programBudget / 1000000000000).toFixed(1);
@@ -39,7 +41,7 @@
     </div>
     
     <div class="border-t pt-6">
-      <h3 class="font-semibold text-gray-900 mb-4">Estimasi Harian</h3>
+      <h3 class="font-semibold text-gray-900 mb-4">Estimasi Harian (22 hari kerja/bulan)</h3>
       <div class="bg-gray-50 p-4 rounded">
         <div class="flex justify-between items-center mb-2">
           <span class="text-gray-700">Per Hari</span>

@@ -1,11 +1,13 @@
 <script lang="ts">
   let lastUpdate = new Date();
-  let inputRupiah = '15.000';
+  let inputRupiah = '10.000';
   let inputPorsi = '1';
   let inputHari = '0';
 
   const mbgPriceJava = 10000;
-  const dailyBudget = 918000000000;
+  const workingDaysPerMonth = 22;
+  const monthlyBudget = 335000000000000 / 12;
+  const dailyBudget = monthlyBudget / workingDaysPerMonth;
 
   function formatRupiah(value: string): string {
     const cleanValue = value.replace(/[^0-9]/g, '');
@@ -80,7 +82,7 @@
         <div class="text-xl font-bold text-gray-900">Rp {mbgPriceJava.toLocaleString('id-ID')}</div>
       </div>
       <div class="border-l-4 border-green-500 pl-4">
-        <div class="text-sm text-gray-600 mb-1">1 Hari Anggaran MBG</div>
+        <div class="text-sm text-gray-600 mb-1">1 Hari Anggaran MBG (22 hari kerja)</div>
         <div class="text-xl font-bold text-gray-900">Rp {(dailyBudget / 1000000000).toLocaleString('id-ID')} Miliar</div>
       </div>
     </div>
